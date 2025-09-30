@@ -65,6 +65,7 @@ def init_bb_imgs() -> tuple[list[pg.Surface],list[int]]:
     bb_accs = [a for a in range(1,11)]
     return bb_imgs, bb_accs
 
+
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
@@ -81,6 +82,7 @@ def main():
     clock = pg.time.Clock()
     tmr = 0
     bb_imgs, bb_accs = init_bb_imgs()
+
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
