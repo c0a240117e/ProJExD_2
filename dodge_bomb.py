@@ -49,6 +49,11 @@ def game_over(screen: pg.Surface) -> None:
     time.sleep(5)
 
 def init_bb_imgs() -> tuple[list[pg.Surface],list[int]]:
+    """
+    戻り値：時間によって変更される、爆弾のSurfaceと整数のリスト
+    bb_imgs：爆弾のSurfaceのリスト
+    bb_accs：爆弾の速度のリスト
+    """
     bb_imgs = []
     for r in range(1,11):
         bb_img = pg.Surface((20*r,20*r))
