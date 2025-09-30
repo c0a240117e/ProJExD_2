@@ -5,7 +5,6 @@ import time
 import pygame as pg
 
 
-
 WIDTH, HEIGHT = 1100, 650
 DELTA = {
     pg.K_UP: (0,-5),
@@ -14,6 +13,7 @@ DELTA = {
     pg.K_RIGHT: (+5,0),
 }
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
 
 def check_bound(rct: pg.Rect) -> tuple[bool, bool]:
     """
@@ -28,6 +28,7 @@ def check_bound(rct: pg.Rect) -> tuple[bool, bool]:
         tate = False
     return yoko, tate
 
+
 def game_over(screen: pg.Surface) -> None:
     """
     引数：スクリーンのSurface
@@ -35,18 +36,19 @@ def game_over(screen: pg.Surface) -> None:
     txt：Game Overの文字のSurface
     kk2_img：Game Over画面のこうかとんの画像
     """
-    gg_img = pg.Surface((WIDTH,HEIGHT))
+    gg_img = pg.Surface((WIDTH,HEIGHT))  # gameover画面のSurface
     pg.draw.rect(gg_img, (0,0,0),(0,0,WIDTH,HEIGHT))
-    gg_img.set_alpha(150)
+    gg_img.set_alpha(150)  # 透明度の設定
     fonto = pg.font.Font(None,80)
     txt = fonto.render("Game Over", True, (255,255,255))
-    gg_img.blit(txt, [400,300])
+    gg_img.blit(txt, [400,300])  # テキストの表示
     kk2_img = pg.image.load("fig/8.png")
-    gg_img.blit(kk2_img, [350,300])
+    gg_img.blit(kk2_img, [350,300])  # Gameover画面のこうかとんの表示
     gg_img.blit(kk2_img, [710,300])
     screen.blit(gg_img, [0,0])
     pg.display.update()
-    time.sleep(5)
+    time.sleep(5)  # 画面を5秒続ける
+
 
 def init_bb_imgs() -> tuple[list[pg.Surface],list[int]]:
     """
@@ -61,7 +63,6 @@ def init_bb_imgs() -> tuple[list[pg.Surface],list[int]]:
         bb_img.set_colorkey((0,0,0))
         bb_imgs.append(bb_img)
     bb_accs = [a for a in range(1,11)]
-
     return bb_imgs, bb_accs
 
 def main():
@@ -80,7 +81,6 @@ def main():
     clock = pg.time.Clock()
     tmr = 0
     bb_imgs, bb_accs = init_bb_imgs()
-
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
@@ -92,7 +92,6 @@ def main():
         
         key_lst = pg.key.get_pressed()
         sum_mv = [0, 0]
-
         avx = vx*bb_accs[min(tmr//500,9)]
         avy = vy*bb_accs[min(tmr//500,9)]
         bb_img = bb_imgs[min(tmr//500,9)]
@@ -101,7 +100,6 @@ def main():
             if key_lst[key]:
                 sum_mv[0] += mv[0] #横方向の移動
                 sum_mv[1] += mv[1] #縦方向の移動
-
         #if key_lst[pg.K_UP]:
         #    sum_mv[1] -= 5
         #if key_lst[pg.K_DOWN]:
@@ -110,7 +108,6 @@ def main():
         #    sum_mv[0] -= 5
         #if key_lst[pg.K_RIGHT]:
         #    sum_mv[0] += 5
-
         kk_rct.move_ip(sum_mv)
         if check_bound(kk_rct) != (True, True):
             kk_rct.move_ip(-sum_mv[0],-sum_mv[1])
